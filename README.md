@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+Ruby 3.2.0
+Rails 7.0.4
 
-* Ruby version
+## Installation
 
-* System dependencies
+TBD
 
-* Configuration
+## Running tests
 
-* Database creation
+`make test`
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+See the `Makefile` for more shortcuts.
