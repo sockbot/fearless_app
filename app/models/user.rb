@@ -6,4 +6,5 @@ class User < ApplicationRecord
   attr_accessor :password_digest
 
   validates :email, presence: true
+  validates :password_digest, presence: true
 end
