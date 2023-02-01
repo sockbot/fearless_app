@@ -3,5 +3,5 @@ class User < ApplicationRecord
 
   attr_accessor :password_digest
   
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
 end
