@@ -10,4 +10,15 @@ RSpec.describe "Users", type: :request do
     end 
   end
 
+  describe "POST /users" do
+    it "can create a new user with unique email and password" do
+      expect {post users_url, params: {user: {email: "hello@world.com", password: "Password1!"}}}.to change(User, :count).by(1)
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to root_path
+
+      follow_redirect!
+
+      expect(flash[:notice]).to include("Account created successfully!")
+    end
+  end
 end
