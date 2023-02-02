@@ -1,4 +1,7 @@
-class User < ApplicationRecord
+class User < ApplicationRecord 
+  has_secure_password
+
+  attr_accessor :password_digest
+  
   validates :email, presence: true
-  validates :password, presence: true
 end
