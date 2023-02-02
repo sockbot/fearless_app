@@ -20,5 +20,13 @@ RSpec.describe "Users", type: :request do
 
       expect(flash[:notice]).to include("Account created successfully!")
     end
+
+    it "does not create a user with duplicate email and password" do
+      user = User.new(email: "hello@world.com", password: "Password1!")
+      user.save
+      expect {post users_url, params: {user: {email: "hello@world.com", password: "Password1!"}}}.to change(User, :count).by(0)
+      expect(response).to have_http_status(422)
+      expect(flash[:alert]).to include("Couldn't create account. Try again")
+    end
   end
 end

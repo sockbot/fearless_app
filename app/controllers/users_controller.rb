@@ -12,8 +12,9 @@ class UsersController < ApplicationController
       flash[:notice] = "Account created successfully!"
       redirect_to root_path
     else
-      flash.now.alert = "Couldn't create account. Try again"
-      render :new
+      # flash.now.alert = "Couldn't create account. Try again"
+      flash[:alert] = "Couldn't create account. Try again"
+      render :new, status: :unprocessable_entity
     end
   end
 
