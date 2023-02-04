@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
   resources :home, only: [:index]
-  resources :users, only: [:new, :create, :index] do
-    resources :profile, only: [:index]
+  resources :users, only: [:new, :create, :index, :show] do
+    resources :profile, only: [:new, :create, :index]
   end
 end
