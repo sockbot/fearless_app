@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   root "home#index"
   resources :home, only: [:index]
   resources :users, only: [:new, :create, :index, :show] do
-    resources :profile, only: [:new, :create, :index]
+    resource :profile, only: [:new, :create, :show]
   end
 end
