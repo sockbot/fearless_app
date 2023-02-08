@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Profile, type: :model do
 
   describe "model validity" do
+    let(:user){User.new}
+
     it "is not valid without a user FK" do
       profile = Profile.new()
       profile.user = nil
@@ -31,10 +33,9 @@ RSpec.describe Profile, type: :model do
     end
 
     it "should not validate a non-integer icq" do
-      profile = Profile.new(icq: "12345")
-      user = User.new()
-      profile.user = user
-      expect(profile.icq).to be(nil)
+      profile = user.build_profile(icq: "abcde")
+      profile.valid?
+      expect(profile.errors[:icq]).to eq(["is not a number"])
     end
   end
 
