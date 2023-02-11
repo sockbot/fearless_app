@@ -9,7 +9,6 @@ class ProfilesController < ApplicationController
     if @profile.save
       redirect_to user_profile_path
     else
-      flash[:alert] = "Profile didn't save, try again"
       render :new, status: :unprocessable_entity
     end
   end
