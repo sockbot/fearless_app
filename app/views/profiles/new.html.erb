@@ -1,0 +1,11 @@
+<h1>Create Profile</h1>
+
+<% if @profile.errors.any? %>
+    <ul>
+        <% @profile.errors.each do | error | %>
+            <li> <%= error.full_message %> </li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%= render :partial => "form" %>
