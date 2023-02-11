@@ -8,21 +8,4 @@
     </ul>
 <% end %>
 
-<%= form_for @profile, :url => user_profile_path do |f| %>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :handle %><br />
-    <%= f.text_field :handle %>
-  </div>
-
-  <div class="field">
-    <%= f.label :icq %><br />
-    <%= f.text_field :icq %>
-  </div>
-
-  <div class="actions"><%= f.submit "Sign Up" %></div>
-<% end %>
+<%= render :partial => "form" %>
