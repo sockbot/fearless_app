@@ -13,23 +13,46 @@ RSpec.describe "Session", type: :request do
   describe "POST /sessions" do
     before(:all) do
       @user = User.new(email: "hello@world.com", password: "Password1!")
+      @user.save
     end
 
     it "creates a new session with valid email and password" do
-      post sessions_path, params: {user: {email: "hello@world.com", password: "Password1!"}}
+      post sessions_path, :params => { email: "hello@world.com", password: "Password1!" }  
+      expect(session[:user_id]).to_not eq(nil)
       expect(session[:user_id]).to eq(@user.id)
     end
 
     it "fails to create a new session with invalid email" do
-      user = User.new(email: "hello@world.com", password: "Password1!")
-      post sessions_path, params: {user: {email: "notanemail", password: "Password1!"}}
+      post sessions_path, :params => { email: "notanemail", password: "Password1!" }
       expect(session[:user_id]).to eq(nil)
     end
 
     it "fails to create a new session with invalid password" do
-      user = User.new(email: "hello@world.com", password: "Password1!")
-      post sessions_path, params: {user: {email: "hello@world.com", password: nil}}
+      post sessions_path, :params => { email: "hello@world.com", password: nil }
       expect(session[:user_id]).to eq(nil)
+    end
+
+    after(:all) do
+      @user.delete
+    end
+  end
+
+  describe "DELETE /logout" do
+    before(:each) do
+      user_params = { email: "hello@world.com", password: "Password1!", id: 234 }
+      @user = User.new(user_params)
+      @user.save
+      post sessions_path, :params => user_params 
+    end
+
+    it "destroys a session" do
+      expect(session[:user_id]).to eq(@user.id)
+      delete logout_path
+      expect(session[:user_id]).to eq(nil)
+    end
+
+    after(:each) do
+      @user.delete
     end
   end
 end
