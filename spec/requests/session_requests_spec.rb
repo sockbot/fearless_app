@@ -12,12 +12,13 @@ RSpec.describe "Session", type: :request do
 
   describe "POST /sessions" do
     before(:all) do
-      @user = User.new(email: "hello@world.com", password: "Password1!", id: 123)
+      @user = User.new(email: "hello@world.com", password: "Password1!")
       @user.save
     end
 
     it "creates a new session with valid email and password" do
       post sessions_path, :params => { email: "hello@world.com", password: "Password1!" }  
+      expect(session[:user_id]).to_not eq(nil)
       expect(session[:user_id]).to eq(@user.id)
     end
 
