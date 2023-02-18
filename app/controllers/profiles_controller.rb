@@ -1,4 +1,7 @@
 class ProfilesController < ApplicationController
+
+  before_action :authorize_own_profile
+
   def new
     @profile = Profile.new
   end
@@ -18,6 +21,12 @@ class ProfilesController < ApplicationController
   end
 
   private
+
+  def authorize_own_profile
+    if current_user.id != session[:user_id]
+      redirect_to login_url, alert: "Not authorized" 
+    end
+  end
 
   def current_user
     @user ||= User.find(params[:user_id])
