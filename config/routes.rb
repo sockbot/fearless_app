@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   root "home#index"
   resources :home, only: [:index]
   get 'signup' => 'users#new'
-  resources :users, only: [:new, :create, :index, :show] do
-    resource :profile, only: [:new, :create, :show]
-  end
+  resources :users, only: [:new, :create, :index, :show]
+  resource :profile, only: [:new, :create, :show]
+  resolve("Profile") { [:profile] }
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
