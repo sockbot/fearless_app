@@ -11,13 +11,12 @@ RSpec.describe "Session", type: :request do
   end
 
   describe "POST /sessions" do
-    before(:all) do
-      @user = User.new(email: "hello@world.com", password: "Password1!")
-      @user.save
+    before(:each) do
+      @user = User.create(email: "hello@world.com", password: "Password1!")
     end
 
     it "creates a new session with valid email and password" do
-      post sessions_path, :params => { email: "hello@world.com", password: "Password1!" }  
+      post sessions_path, :params => { email: @user.email, password: "Password1!" }  
       expect(session[:user_id]).to_not eq(nil)
       expect(session[:user_id]).to eq(@user.id)
     end
@@ -31,17 +30,12 @@ RSpec.describe "Session", type: :request do
       post sessions_path, :params => { email: "hello@world.com", password: nil }
       expect(session[:user_id]).to eq(nil)
     end
-
-    after(:all) do
-      @user.delete
-    end
   end
 
   describe "DELETE /logout" do
     before(:each) do
-      user_params = { email: "hello@world.com", password: "Password1!", id: 234 }
-      @user = User.new(user_params)
-      @user.save
+      user_params = { email: "hello@world.com", password: "Password1!" }
+      @user = User.create(user_params)
       post sessions_path, :params => user_params 
     end
 
@@ -49,10 +43,6 @@ RSpec.describe "Session", type: :request do
       expect(session[:user_id]).to eq(@user.id)
       delete logout_path
       expect(session[:user_id]).to eq(nil)
-    end
-
-    after(:each) do
-      @user.delete
     end
   end
 end
