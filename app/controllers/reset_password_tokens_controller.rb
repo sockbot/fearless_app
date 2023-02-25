@@ -1,7 +1,10 @@
 class ResetPasswordTokensController < ApplicationController
 
-  skip_before_action :authenticate!, only: [:new]
+  skip_before_action :authenticate!, only: [:new, :create]
 
   def new
+  end
+
+  def create
   end
 end
