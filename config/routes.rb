@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :home, only: [:index]
   resource :profile, only: [:new, :create, :show]
   resolve("Profile") { [:profile] }
+  resource :reset_password_token, only: [:new]
   resources :sessions, only: [:new, :create] 
   resources :users, only: [:new, :create, :index, :show]
 end
