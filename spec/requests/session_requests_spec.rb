@@ -32,7 +32,7 @@ RSpec.describe "Session", type: :request do
     end
   end
 
-  describe "DELETE /logout" do
+  describe "GET /logout" do
     before(:each) do
       user_params = { email: "hello@world.com", password: "Password1!" }
       @user = User.create(user_params)
@@ -41,7 +41,7 @@ RSpec.describe "Session", type: :request do
 
     it "destroys a session" do
       expect(session[:user_id]).to eq(@user.id)
-      delete logout_path
+      get logout_path
       expect(session[:user_id]).to eq(nil)
     end
   end
