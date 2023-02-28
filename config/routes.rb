@@ -3,13 +3,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
-  resources :home, only: [:index]
-  get 'signup' => 'users#new'
-  resources :users, only: [:new, :create, :index, :show]
-  resource :profile, only: [:new, :create, :show]
-  resolve("Profile") { [:profile] }
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   get 'logout'  => 'sessions#destroy'
+  get 'signup' => 'users#new'
+
+  resources :home, only: [:index]
+  resource :profile, only: [:new, :create, :show]
+  resolve("Profile") { [:profile] }
+  resource :password_reset_token, only: [:new, :create]
   resources :sessions, only: [:new, :create] 
+  resources :users, only: [:new, :create, :index, :show]
 end
