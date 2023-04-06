@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resource :password_reset_token, only: [:new, :create]
   resources :sessions, only: [:new, :create] 
   resources :users, only: [:new, :create, :index, :show]
+  resources :articles
 end
