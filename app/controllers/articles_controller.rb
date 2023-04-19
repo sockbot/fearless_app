@@ -1,6 +1,10 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.where("title ILIKE ?", "%" + Article.sanitize_sql_like(params[:query]) + "%").or(Article.where("body ILIKE ?", "%" + Article.sanitize_sql_like(params[:query]) + "%"))
+    if params[:query]
+      @articles = Article.where("title ILIKE ?", "%" + Article.sanitize_sql_like(params[:query]) + "%").or(Article.where("body ILIKE ?", "%" + Article.sanitize_sql_like(params[:query]) + "%"))
+    else
+      @articles = Article.all
+    end
   end
 
   def show
