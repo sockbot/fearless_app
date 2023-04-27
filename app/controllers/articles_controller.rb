@@ -1,8 +1,13 @@
 class ArticlesController < ApplicationController
   def index
     if params[:query]
+      fields = ['title', 'body']
+      article_search = ArticleSearch.new
       query = Article.sanitize_sql_like(params[:query])
-      @articles = Article.where("title ILIKE ?", "%#{query}%").or(Article.where("body ILIKE ?", "%#{query}%"))
+      fields.each do |field|
+        article_search.add_condition(field, query)
+      end
+      @articles = article_search.build_query()
     else
       @articles = Article.all
     end
