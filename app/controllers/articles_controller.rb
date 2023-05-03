@@ -1,16 +1,6 @@
 class ArticlesController < ApplicationController
   def index
-    if params[:query]
-      fields = ['title', 'body']
-      article_search = ArticleSearch.new
-      query = Article.sanitize_sql_like(params[:query])
-      fields.each do |field|
-        article_search.add_condition(field, query)
-      end
-      @articles = article_search.build_query()
-    else
-      @articles = Article.all
-    end
+    @articles = ArticleSearch.new(params[:query]).results()
   end
 
   def show
