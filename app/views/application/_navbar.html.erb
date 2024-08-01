@@ -8,7 +8,7 @@
 
 <% if current_user %>
   <%= form_with url: articles_path, method: :get do |form| %>
-  <%= form.label :query, "Search Article Titles:" %>
+  <%= form.label :query, "Search Article Titles and Body:" %>
   <%= form.text_field :query %>
   <%= form.submit "Search" %>
   <% end %>

@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   def index
     if params[:query]
-      @articles = Article.where("title ILIKE ?", "%" + Article.sanitize_sql_like(params[:query]) + "%").or(Article.where("body ILIKE ?", "%" + Article.sanitize_sql_like(params[:query]) + "%"))
+      @articles = ArticleSearch.new(params[:query]).results()
     else
       @articles = Article.all
     end
